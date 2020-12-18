@@ -8,9 +8,9 @@ export class Filters extends React.Component {
             <div id="Filters">
                 <p>Filters</p>
                 <ul>
-                    <li><button id="replies">Number of replies</button></li>
-                    <li><button id="upvotes">Number of upvotes</button></li>
-                    <li><button id="date">Newest First</button></li>
+                    <li><button onClick={this.props.filterByReplies} id="replies">Number of replies</button></li>
+                    <li><button onClick={this.props.filterByUpvotes} id="upvotes">Number of upvotes</button></li>
+                    <li><button onClick={this.props.filterByDate} id="date">Newest First</button></li>
                 </ul>     
             </div>
         )
