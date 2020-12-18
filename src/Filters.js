@@ -10,7 +10,7 @@ export class Filters extends React.Component {
                 <ul>
                     <li><button onClick={this.props.filterByReplies} id="replies">Number of replies</button></li>
                     <li><button onClick={this.props.filterByUpvotes} id="upvotes">Number of upvotes</button></li>
-                    <li><button onClick={this.props.filterByDate} id="date">Newest First</button></li>
+                    <li><button onClick={this.props.filterByDate} id="date">Newest first</button></li>
                 </ul>     
             </div>
         )

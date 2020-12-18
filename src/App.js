@@ -30,14 +30,17 @@ export default class App extends React.Component {
     const threadStarters = [];
     let i = 0;
     while (i < 10) {
+      let timeStamp = this.state.myReddit.data.children[i].data.created_utc;
+      let date = new Date(timeStamp * 1000);
+      let dateOutput = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
       newList.push(
         <li className="threadStarter" key={`thread-${i}`}>
           <h3>{this.state.myReddit.data.children[i].data.author}</h3>
           <h2>{this.state.myReddit.data.children[i].data.title}</h2>
           <img alt="" src={this.state.myReddit.data.children[i].data.thumbnail}/>
-          <p>comments: {this.state.myReddit.data.children[i].data.num_comments}</p>
-          <p>upvotes: {this.state.myReddit.data.children[i].data.ups}</p>
-          <p>creation date: {Date(this.state.myReddit.data.children[i].data.created)}</p>
+          <p>Comments: {this.state.myReddit.data.children[i].data.num_comments}</p>
+          <p>Upvotes: {this.state.myReddit.data.children[i].data.ups}</p>
+          <p>Creation date: {dateOutput}</p>
           <button id={i} className="threadStarter" onClick={this.openThread} value={this.state.myReddit.data.children[i].data.permalink}>
             Open
           </button>
