@@ -1,4 +1,6 @@
 import './App.css';
+import { Search } from './Search.js';
+import { Filters } from './Filters.js';
 import React from 'react';
 const redditSearchPath = "https://www.reddit.com/search.json?q="
 
@@ -10,6 +12,7 @@ export default class App extends React.Component {
     this.listMakerTen = this.listMakerTen.bind(this);
     this.listMaker = this.listMaker.bind(this);
     this.openThread = this.openThread.bind(this);
+    this.returnButton = this.returnButton.bind(this);
     this.state = {
       inputText: '',
       display: '',
@@ -17,7 +20,6 @@ export default class App extends React.Component {
       myList: [],
       myReddit: {},
       threadStarters: [],
-      prevSearch: '',
     };
   }
   
@@ -27,16 +29,22 @@ export default class App extends React.Component {
     let i = 0;
     while (i < 10) {
       newList.push(
-        <li key={i}>
-          <img alt="" src={item.data.children[i].data.thumbnail}/>
-          <h2 className="threadStarter">{item.data.children[i].data.title}</h2>
-          <button id={i} className="threadStarter" onClick={this.openThread} value={item.data.children[i].data.permalink}>
-            more
+        <li key={`thread-${i}`}>
+          <img alt="" src={this.state.myReddit.data.children[i].data.thumbnail}/>
+          <h2 className="threadStarter">{this.state.myReddit.data.children[i].data.title}</h2>
+          <button id={i} className="threadStarter" onClick={this.openThread} value={this.state.myReddit.data.children[i].data.permalink}>
+            Open
           </button>
         </li>);
-      threadStarters.push(<div><img alt="" src={item.data.children[i].data.url}/><video control='true' alt="" src={item.data.children[i].data.url}></video><h3>{item.data.children[i].data.author}</h3><p>{item.data.children[i].data.selftext}</p></div>)
+      threadStarters.push(
+        <div>
+          <img alt="" src={item.data.children[i].data.url}/>
+          <video alt="" src={item.data.children[i].data.url}></video>
+          <h3>{item.data.children[i].data.author}</h3>
+          <h4>{item.data.children[i].data.title}</h4>
+          <p>{item.data.children[i].data.selftext}</p>
+        </div>)
       i++;
-      console.log(item.data.children[i].data.url);
     }
     this.setState({threadStarters: threadStarters})
     console.log(item); // remove this line when finished with coding
@@ -49,7 +57,7 @@ export default class App extends React.Component {
     let threadLength = input[1].data.children.length;
     while (i < threadLength) {
       newList.push(
-        <li key={`00${i}`}>
+        <li key={`threadItem-${i}`}>
           <h3>{input[1].data.children[i].data.author}</h3>
           <p>{input[1].data.children[i].data.body}</p>
         </li>);
@@ -72,10 +80,23 @@ export default class App extends React.Component {
         return;
       }
       else {
-        let newList = [<button onClick={this.dataFetch}>Retrun</button>, <h3>{this.state.threadStarters[target.id]}</h3>, this.listMaker(jsonResponse)];
+        let newList = [
+          <button onClick={this.returnButton}>Retrun</button>, 
+          this.state.threadStarters[target.id], 
+          this.listMaker(jsonResponse)
+          ];
         this.setState({display: newList});
       }
     })
+  }
+
+
+  returnButton () {
+    let newList = this.listMakerTen(this.state.myReddit);
+    this.setState({
+      display: newList,
+      threadDisplay: '',
+    });
   }
 
 
@@ -102,24 +123,16 @@ export default class App extends React.Component {
     let newList = this.listMakerTen(this.state.myReddit);
     this.setState({
       display: newList,
-      prevSearch: this.state.inputText
     });
   }
 
-  componentDidMount () {
-    this.dataFetch();
-  }
 
   render () {
     return (
       <div id="main">
         <h1 id="pageTitle">Mini Reddit</h1>
-        <input id="search" onChange={this.handleChange}></input>
-        <button id="searchButton" onClick={this.dataFetch} value="">Search</button>
-        <p>Filters</p>
-        <button id="replies">Number of replies</button>
-        <button id="upvotes">Number of upvotes</button>
-        <button id="date">Newest First</button>
+        <Search handleChange={this.handleChange} dataFetch={this.dataFetch}/>
+        <Filters />
         <div id="searchResults"><ul>{this.state.display}</ul></div>
         <div id="threadDisplay"><ul>{this.state.threadDisplay}</ul></div>
       </div>
