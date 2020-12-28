@@ -3,9 +3,10 @@ import React from 'react';
 
 export class Search extends React.Component {
 
-  componentDidMount () {
+  /*componentDidMount () {
+
     this.props.dataFetch();
-  }
+  }*/
 
     render () {
         return (

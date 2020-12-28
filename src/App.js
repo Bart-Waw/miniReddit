@@ -1,47 +1,55 @@
 import './App.css';
 import { Search } from './Search.js';
 import { Filters } from './Filters.js';
-import React from 'react';
+import React, { useState } from 'react';
 const redditSearchPath = "https://www.reddit.com/search.json?q="
 
-export default class App extends React.Component {
-  constructor (props) {
-    super(props);
-    this.dataFetch = this.dataFetch.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.listMakerTen = this.listMakerTen.bind(this);
-    this.listMaker = this.listMaker.bind(this);
-    this.openThread = this.openThread.bind(this);
-    this.returnButton = this.returnButton.bind(this);
-    this.filterByReplies = this.filterByReplies.bind(this);
-    this.filterByUpvotes = this.filterByUpvotes.bind(this);
-    this.filterByDate = this.filterByDate.bind(this);
-    this.state = {
-      inputText: '',
-      display: '',
-      threadDisplay: '',
-      myReddit: {},
-      threadStarters: [],
-    };
-  }
+function App () {
+  const [inputText, setInputText] = useState("");
+  const [display, setDisplay] = useState("");
+  const [threadDisplay, setThreadDisplay] = useState("");
+  const [myReddit, setMyReddit] = useState({});
+  const [threadStarters, setThreadStarters] = useState([]);
+
   
-  listMakerTen(item) {
+  async function dataFetch () {
+    let fetchItem = '';
+    await handleChange;
+    if (inputText === '') {
+      fetchItem = 'https://www.reddit.com/r/popular.json';
+    }
+    else {
+      fetchItem = `${redditSearchPath + inputText}`;
+    }
+
+    await fetch(fetchItem)
+    .then(response => {if (response.ok) {return response.json(); }
+      throw new Error("Request failed");
+    }, newtworkError => console.log(newtworkError.message))
+    .then(jsonResponse => {
+      setMyReddit(jsonResponse);
+    });
+    let newList = listMakerTen(myReddit);
+    setDisplay(newList);
+  };
+  
+  function listMakerTen (item) {
     const newList = [];
     const threadStarters = [];
     let i = 0;
     while (i < 10) {
-      let timeStamp = this.state.myReddit.data.children[i].data.created_utc;
+      let timeStamp = myReddit.data.children[i].data.created_utc;
       let date = new Date(timeStamp * 1000);
       let dateOutput = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
       newList.push(
         <li className="threadStarter" key={`thread-${i}`}>
-          <h3>{this.state.myReddit.data.children[i].data.author}</h3>
-          <h2>{this.state.myReddit.data.children[i].data.title}</h2>
-          <img alt="" src={this.state.myReddit.data.children[i].data.thumbnail}/>
-          <p>Comments: {this.state.myReddit.data.children[i].data.num_comments}</p>
-          <p>Upvotes: {this.state.myReddit.data.children[i].data.ups}</p>
+          <h3>{myReddit.data.children[i].data.author}</h3>
+          <h2>{myReddit.data.children[i].data.title}</h2>
+          <img alt="" src={myReddit.data.children[i].data.thumbnail}/>
+          <p>Comments: {myReddit.data.children[i].data.num_comments}</p>
+          <p>Upvotes: {myReddit.data.children[i].data.ups}</p>
           <p>Creation date: {dateOutput}</p>
-          <button id={i} className="threadStarter" onClick={this.openThread} value={this.state.myReddit.data.children[i].data.permalink}>
+          <button id={i} className="threadStarter" onClick={openThread} value={myReddit.data.children[i].data.permalink}>
             Open
           </button>
         </li>);
@@ -54,12 +62,11 @@ export default class App extends React.Component {
         </div>)
       i++;
     }
-    this.setState({threadStarters: threadStarters})
-    // console.log(item); // remove this line when finished with coding
+    setThreadStarters(threadStarters);
     return newList;
-  }
+  };
 
-  listMaker(input) {
+  function listMaker (input) {
     const newList = [];
     let i = 0;
     let threadLength = input[1].data.children.length - 1;
@@ -72,11 +79,10 @@ export default class App extends React.Component {
       i++;
     }
       return newList;
-  }
-
-
-  async openThread({target}) {
-    this.setState({threadDisplay: ""});
+  };
+  
+  async function openThread ({target}) {
+    setThreadDisplay("");
     let fetchItem = `https://www.reddit.com/${target.value}.json`;
     fetch(fetchItem)
     .then(response => {if (response.ok) {return response.json(); }
@@ -89,97 +95,60 @@ export default class App extends React.Component {
       }
       else {
         let newList = [
-          <button onClick={this.returnButton}>Retrun</button>, 
-          this.state.threadStarters[target.id], 
-          this.listMaker(jsonResponse)
+          <button onClick={returnButton}>Retrun</button>, 
+          threadStarters[target.id], 
+          listMaker(jsonResponse)
           ];
-        this.setState({display: newList});
+        setDisplay(newList);
       }
     })
-  }
+  };
 
+  function returnButton () {
+    let newList = listMakerTen(myReddit);
+    setThreadDisplay('');
+    setDisplay(newList);
+  };
 
-  returnButton () {
-    let newList = this.listMakerTen(this.state.myReddit);
-    this.setState({
-      display: newList,
-      threadDisplay: '',
-    });
-  }
-
-  filterByReplies () {
-    this.state.myReddit.data.children.sort(function (b, a) {
+  function filterByReplies () {
+    myReddit.data.children.sort(function (b, a) {
       return a.data.num_comments - b.data.num_comments;
     } );
-    let newList = this.listMakerTen(this.state.myReddit);
-    this.setState({
-      display: newList,
-    });
-  }
+    let newList = listMakerTen(myReddit);
+    setDisplay(newList);
+  };
 
-  filterByUpvotes () {
-    this.state.myReddit.data.children.sort(function (b, a) {
+ function filterByUpvotes () {
+    myReddit.data.children.sort(function (b, a) {
       return a.data.ups - b.data.ups;
     } );
-    let newList = this.listMakerTen(this.state.myReddit);
-    this.setState({
-      display: newList,
-    });
-  }
+    let newList = listMakerTen(myReddit);
+    setDisplay(newList);
+  };
 
-  filterByDate () {
-    console.log(this.state.myReddit);
-    this.state.myReddit.data.children.sort(function (b, a) {
+  function filterByDate () {
+    myReddit.data.children.sort(function (b, a) {
       return a.data.created - b.data.created;
     } );
-    let newList = this.listMakerTen(this.state.myReddit);
-    this.setState({
-      display: newList,
-    });
-  }
+    let newList = listMakerTen(myReddit);
+    setDisplay(newList);
+  };
 
+  function handleChange ({target}) {
+    setInputText(target.value);
+  };
 
-  handleChange ({target}) {
-    this.setState({inputText: target.value});
-  }
+  return (
+    <div id="main">
+      <h1 id="pageTitle">Mini Reddit</h1>
+      <Search handleChange={handleChange} 
+              dataFetch={dataFetch}/>
+      <Filters  filterByReplies={filterByReplies} 
+                filterByUpvotes={filterByUpvotes}
+                filterByDate={filterByDate}/>
+        <div id="searchResults"><ul>{display}</ul></div>
+        <div id="threadDisplay"><ul>{threadDisplay}</ul></div>
+    </div>
+  )};
 
-
-  async dataFetch () {
-    let fetchItem = '';
-    await this.handleChange;
-    if (this.state.inputText === '') {
-      fetchItem = 'https://www.reddit.com/r/popular.json';
-    }
-    else {
-      fetchItem = `${redditSearchPath + this.state.inputText}`;
-    }
-    await fetch(fetchItem)
-    .then(response => {if (response.ok) {return response.json(); }
-      throw new Error("Request failed");
-    }, newtworkError => console.log(newtworkError.message))
-    .then(jsonResponse => {
-      this.setState({myReddit: jsonResponse});
-    })
-    let newList = this.listMakerTen(this.state.myReddit);
-    this.setState({
-      display: newList,
-    });
-  }
-
-
-  render () {
-    return (
-      <div id="main">
-        <h1 id="pageTitle">Mini Reddit</h1>
-        <Search handleChange={this.handleChange} 
-                dataFetch={this.dataFetch}/>
-        <Filters  filterByReplies={this.filterByReplies} 
-                  filterByUpvotes={this.filterByUpvotes}
-                  filterByDate={this.filterByDate}/>
-          <div id="searchResults"><ul>{this.state.display}</ul></div>
-          <div id="threadDisplay"><ul>{this.state.threadDisplay}</ul></div>
-      </div>
-    )
-  }
-
-};
+export default App;
