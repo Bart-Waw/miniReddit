@@ -1,20 +1,12 @@
 import './App.css';
 import React from 'react';
 
-export class Search extends React.Component {
+export function Search (props) {
 
-  /*componentDidMount () {
-
-    this.props.dataFetch();
-  }*/
-
-    render () {
-        return (
-            <div>
-                <input id="search" onChange={this.props.handleChange}></input>
-                <button id="searchButton" onClick={this.props.dataFetch} value="">Search</button>
-            </div>
-        )
-    }
-    
+    return (
+      <div>
+        <input id="search" onChange={props.handleChange}></input>
+        <button id="searchButton" onClick={props.dataFetch} value="">Search</button>
+      </div>
+    )
 }
