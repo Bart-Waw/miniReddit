@@ -17,11 +17,16 @@ export function Display () {
   function DisplayThreadList () {
     const newList = redditUpdatedData.map(item => {
         return (
-        <li key={item[0]}>
-            <h3>{item[2]}</h3>
-            <img alt="" src={item[5]}></img>
-            <h2>{item[3]}</h2>
-            <button onClick={openThread} value={item[0]}>Open</button>
+        <li key={item[0]} className="thread">
+            <div className="threadContent">
+              <button onClick={openThread} value={item[0]} className="openButton">OPEN</button>
+              <img alt="" src={item[5]}></img>
+            </div>
+            <div className="threadContent">
+              <h2 className="threadStarter">{item[2]}</h2>
+              <p>{item[3]}</p>
+            </div>
+            
         </li>
         )
     })
@@ -37,9 +42,9 @@ export function Display () {
     let threadLength = input[1].data.children.length - 1;
     while (i < threadLength) {
       newList.push(
-        <li key={`threadItem-${input[1].data.children[i].data.author}${i}`}>
-          <h3>{input[1].data.children[i].data.author}</h3>
-          <div>{input[1].data.children[i].data.body}</div>
+        <li key={`threadItem-${input[1].data.children[i].data.author}${i}`} className="post">
+          <h3 className="author">{input[1].data.children[i].data.author}</h3>
+          <p>{input[1].data.children[i].data.body}</p>
         </li>);
       i++;
     }
@@ -54,12 +59,16 @@ export function Display () {
         })
     // save info about thread starter
     const thisThreadStarter = (
-        <li key='threadStarter'>
-            <div><button onClick={DisplayThreadList}>Return</button></div>
-            <img alt='' src={thisThread[9]}></img>
-            <h3>{thisThread[2]}</h3>
-            <h2>{thisThread[3]}</h2>
-            <p>{thisThread[4]}</p>
+        <li key='threadStarter' id="firstPost">
+            <button onClick={DisplayThreadList}>RETURN</button>
+            <div className="post">
+              <h2 className="author">{thisThread[2]}</h2>
+              <h3>{thisThread[3]}</h3>
+              <div id="imageHolder">
+                <img alt='' src={thisThread[9]}></img>
+              </div>
+              <p>{thisThread[4]}</p>
+            </div>
         </li>
     );
     // search reddit for thread info
@@ -91,7 +100,7 @@ export function Display () {
 
     return (
         <div>
-            <ul>{DisplayData}</ul>
+            <ul id="display">{DisplayData}</ul>
         </div>
     )   
     

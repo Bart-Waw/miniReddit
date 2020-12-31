@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {updateInputValue, updateRedditData} from './redux';
 import {useDispatch, useSelector} from 'react-redux';
 const redditSearchPath = "https://www.reddit.com/search.json?q="
@@ -61,19 +61,13 @@ export function Search () {
     dispatch(updateRedditData(newList));
   }
 
-  async function runSearch () {
-    await dataFetch()
-    
-    
-    //const newList = await threadListMaker(jsonResponse);
-    //console.log(newList);
-  }
+  useEffect(() => {dataFetch()}, []);
 
   
     return (
-      <div>
+      <div id="searchBar">
         <input id="searchInput" onChange={handleChange}></input>
-        <button id="searchButton" onClick={runSearch} value="">Search</button>
+        <button id="searchButton" onClick={dataFetch} value="" id="search">SEARCH</button>
       </div>
     )
 

@@ -6,6 +6,6 @@ import { store } from './redux';
 
 test('checks if App displays page title', () => {
   render(<Provider store={store}><App /></Provider>);
-  const linkElement = screen.getByText(/Mini Reddit/i);
+  const linkElement = screen.getByText(/miniREDDIT/i);
   expect(linkElement).toBeInTheDocument();
 });

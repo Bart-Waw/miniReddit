@@ -1,3 +1,357 @@
-.App {
-  text-align: center;
-}
+* {margin: 0; padding: 0;}
+* {box-sizing: border-box;}
+
+@font-face {
+    font-family: 'Goldman';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/goldman/v1/pe0uMIWbN4JFplR2HDVyBw.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'Goldman';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/goldman/v1/pe0rMIWbN4JFplR2FI5XEtCaBg.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'Lobster';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/lobster/v23/neILzCirqoswsqX9zoKmMw.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-style: italic;
+    font-weight: 300;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/roboto/v20/KFOjCnqEu92Fr1Mu51TjASc6CsQ.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxK.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  
+  h1 {
+    font-family: 'Goldman';
+    font-style: normal;
+    font-weight: 700;
+    Font-size: 32px;
+    color: darkslategray;
+  }
+
+  li {
+    list-style: none;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+
+    margin: 5px;
+    margin-left: 10px;
+  }
+
+  h2 {
+    font-family: 'Goldman';
+    font-style: normal;
+    font-weight: 400;
+    Font-size: 24px;
+    color: darkslategray;
+
+    padding: 5px;
+  }
+
+  h3 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    color: darkslategray;
+
+    padding: 5px;
+  }
+
+  p {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    color: darkslategray;
+
+    padding: 5px;
+  }
+
+  .App {
+    text-align: center;
+  }
+
+  #main {
+    background-color: rgb(248, 241, 221);
+    min-height: 1000px;
+  }
+
+  #display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #pageTitle {
+    color: rgb(255, 38, 0);
+    padding: 10px 20px;
+    font-size: 50px;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 400px) {
+    #pageTitle {
+      font-size: 30px;
+    }
+  }
+
+  /* Search Bar */
+
+  #searchBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 30px;
+  }
+
+  input {
+    margin: 10px 30px;
+    background-color: rgb(255, 255, 255);
+    min-width: 400px; 
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    color: darkslategray;
+  }
+
+  @media only screen and (max-width: 400px) {
+    input {
+      min-width: 300px; 
+    }
+  }
+
+  #Filters {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .filter {
+    padding: 1px;
+    display: inline;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media only screen and (min-width: 800px) {
+    .filter {
+      padding: 5px 10px;
+      display: inline;
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  button {
+    background-color:  rgb(235, 127, 84);
+    border-color: rgb(245, 207, 172);
+    border-style: solid;
+    border-radius: 5%;
+    border-width: 3px;
+    padding: 0px 10px;
+    margin: 5px;
+    font-family: 'Goldman';
+    font-style: normal;
+    font-weight: 700;
+    Font-size: 20px;
+    color: rgb(248, 243, 171);
+  }
+
+  button:active {
+    background-color: rgb(247, 163, 7);
+    color: rgb(241, 240, 214);
+  }
+
+  /* thread list display */
+
+  .thread {
+    border: rgb(243, 223, 155);
+    border-style: solid;
+    background-color: rgb(245, 243, 215);
+    padding: 10px;
+    transition: background-color 1s;
+    display: flex;
+    align-items: flex-start;
+    width: 440px;
+  }
+
+  @media only screen and (min-width: 800px) {
+    .thread {
+      width: 800px;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    .thread {
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .threadContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-items: left;
+  }
+
+  @media only screen and (max-width: 400px) {
+    .threadContent {
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .threadContent img {
+    display: inline;
+    margin: 5px;
+  }
+
+  .threadContent button {
+    min-width: 140px;
+  }
+
+  .threadContent p {
+    font-size: 20px;
+    color: darkslategray;
+    padding: 10px 30px;
+  }
+
+  .thread:hover {
+    background-color: rgb(241, 233, 160);
+    transition: background-color 1s;
+  }
+
+  .threadStarter {
+    color: rgb(116, 2, 2);
+    padding: 5px 20px;
+    font-size: 20px;
+  }
+
+  @media only screen and (min-width: 800px) {
+    .threadStarter {
+      font-size: 25px;
+    }
+  }
+
+  /* open thread display */
+
+  #firstPost {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #firstPost .post {
+    border: rgb(235, 127, 84);
+    border-style: solid;
+    background-color: rgb(245, 243, 215);
+    padding: 10px;
+  }
+
+  .post {
+    border: rgb(235, 127, 84);
+    border-style: solid;
+    background-color: rgb(245, 243, 215);
+    padding: 10px;
+    width: 440px;
+  }
+
+  @media only screen and (min-width: 800px) {
+    .post {
+      width: 800px;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    .post {
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  #imageHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .post img {
+    max-width: 400px;
+    max-height: 600px;
+    margin: 15px;
+  }
+
+  @media only screen and (min-width: 800px) {
+    .post img {
+      max-width: 600px;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    .post img {
+      max-width: 280px;
+    }
+
+    .post p {
+      max-width: 260px;
+    }
+  }
+
+  .post p {
+    margin: 10px;
+  }
+
+  .author {
+    color: rgb(116, 2, 2);
+    padding: 5px 20px;
+  }
+
+
+
+  @media only screen and (max-width: 800px) {
+  }

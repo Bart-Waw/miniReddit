@@ -1,5 +1,3 @@
-// FINISHED AND WORKS OKAY !!
-
 import './App.css';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -35,11 +33,11 @@ export function Filters (props) {
     return (
         
         <div id="Filters">
-            <p>Filters</p>
-            <ul>
-                <li><button onClick={filterByReplies} id="replies">Number of replies</button></li>
-                <li><button onClick={filterByUpvotes} id="upvotes">Number of upvotes</button></li>
-                <li><button onClick={filterByDate} id="date">Newest first</button></li>
+            <h2 className="filter">Sort by:</h2>
+            <ul className="filter">
+                <li className="filter"><button onClick={filterByReplies} id="replies">Number of replies</button></li>
+                <li className="filter"><button onClick={filterByUpvotes} id="upvotes">Number of upvotes</button></li>
+                <li className="filter"><button onClick={filterByDate} id="date">Newest first</button></li>
             </ul>     
         </div>
     )   
