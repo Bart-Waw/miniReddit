@@ -1,42 +1,46 @@
+# miniReddit
+This project was created as a part of a course.
+
+
 # Wireframes
-## main
-### website Logo
-### Input field + Search button
-### 3 Sorting options
-### List of threads
+## main page
+* website Logo
+* Input field + Search button
+* 3 Sorting options
+* List of **threads**
 
-### thread
-#### open thread button + thumbnail
-#### thread creator name + thread subject 
+## thread
+* open thread button + thumbnail
+* thread creator name + thread subject 
 
-### open thread
-#### image
-#### thread creator name
-#### thread subject
-#### text
-#### replies
+## open thread
+* image
+* thread creator name
+* thread subject
+* text
+* list of **replies**
 
-### reply
-#### reply creator name
-#### reply text
+## reply
+* reply creator name
+* reply text
 
 
 # Technologies used
-## HTML
-## CSS
-## JavaScript
-## React
-## Redux
+* **HTML**
+* **CSS**
+* **JavaScript**
+* **React**
+* **Redux**
 
 ## Testing with:
-### Jest
+* **Jest**
 
 
 # Features
-## Quickly browse Reddit using search terms.
-## Open and read threads in full.
-## View posted images.
-## Works on all browsers and mobile devices.
+* Quickly browse Reddit using search terms.
+* Open and read threads in full.
+* View posted images.
+* Works on all browsers and mobile devices.
 
 
 # Future work
