@@ -33,7 +33,7 @@ export function Search () {
     await fetch(fetchItem)
     .then(response => {if (response.ok) {return response.json(); }
       throw new Error("Request failed");
-    }, newtworkError => console.log(newtworkError.message))
+    }, newtworkError => window.alert(newtworkError.message))
     .then(jsonResponse => {
       threadListMaker(jsonResponse);
     })
@@ -54,8 +54,11 @@ export function Search () {
         item.data.num_comments,
         item.data.ups,
         item.data.permalink,
-        item.data.url,
       ])
+      if (item.data.url) {
+        newList[counter].push(item.data.url)
+      };
+
       counter++;
     })
     dispatch(updateRedditData(newList));
@@ -66,8 +69,8 @@ export function Search () {
   
     return (
       <div id="searchBar">
-        <input id="searchInput" onChange={handleChange}></input>
-        <button id="searchButton" onClick={dataFetch} value="" id="search">SEARCH</button>
+        <input type="text" id="searchInput" onChange={handleChange}></input>
+        <button id="searchButton" onClick={dataFetch} value="" id="search"><label htmlFor="searchInput">SEARCH</label></button>
       </div>
     )
 

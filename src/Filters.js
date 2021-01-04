@@ -32,14 +32,14 @@ export function Filters (props) {
     
     return (
         
-        <div id="Filters">
+        <li key="Filters" id="Filters">
             <h2 className="filter">Sort by:</h2>
             <ul className="filter">
                 <li className="filter"><button onClick={filterByReplies} id="replies">Number of replies</button></li>
                 <li className="filter"><button onClick={filterByUpvotes} id="upvotes">Number of upvotes</button></li>
                 <li className="filter"><button onClick={filterByDate} id="date">Newest first</button></li>
             </ul>     
-        </div>
+        </li>
     )   
 
     

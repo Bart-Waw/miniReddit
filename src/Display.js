@@ -65,7 +65,7 @@ export function Display () {
               <h2 className="author">{thisThread[2]}</h2>
               <h3>{thisThread[3]}</h3>
               <div id="imageHolder">
-                <img alt='' src={thisThread[9]}></img>
+                {thisThread[9] ? <img alt='' src={thisThread[9]}></img> : ""}
               </div>
               <p>{thisThread[4]}</p>
             </div>

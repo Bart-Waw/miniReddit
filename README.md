@@ -1,6 +1,6 @@
 # miniReddit
 This project was created as a part of a course.
-Visit the page [here](http://www.mini_reddit.surge.sh).
+Visit the page [here](https://www.mini_reddit.surge.sh).
 
 
 # Wireframes
@@ -50,6 +50,8 @@ Visit the page [here](http://www.mini_reddit.surge.sh).
 3. Add videos / links to videos.
 4. Collect user input and update visuals accordingly.
 5. Add more tests.
+6. Add return and "go to top of page" buttons to the bottom of thread display.
+7. Ensure clicking return on mobile/browser does not close page.
 
 
 This project was bootstrapped with 
