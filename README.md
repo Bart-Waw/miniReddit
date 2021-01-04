@@ -1,6 +1,6 @@
 # miniReddit
 This project was created as a part of a course.
-Visit the page [here][http://www.mini_reddit.surge.sh].
+Visit the page [here](http://www.mini_reddit.surge.sh).
 
 
 # Wireframes
